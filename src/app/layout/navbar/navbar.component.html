@@ -1,0 +1,109 @@
+<nav class="bg-white shadow-lg">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <!-- Logo/Brand -->
+      <div class="flex items-center">
+        <a routerLink="/" class="text-2xl font-bold text-blue-600">
+          YourApp
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex md:items-center md:space-x-8">
+        <a routerLink="/" 
+           routerLinkActive="text-blue-600" 
+           [routerLinkActiveOptions]="{exact: true}"
+           class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
+          Home
+        </a>
+        <a routerLink="/about" 
+           routerLinkActive="text-blue-600"
+           class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
+          About
+        </a>
+
+        @if (!isLoggedIn()) {
+          <a routerLink="/login" 
+             routerLinkActive="text-blue-600"
+             class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
+            Login
+          </a>
+          <a routerLink="/signup" 
+             class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">
+            Sign Up
+          </a>
+        } @else {
+          <a routerLink="/dashboard" 
+             routerLinkActive="text-blue-600"
+             class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
+            Dashboard
+          </a>
+          <button (click)="logout()" 
+                  class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
+            Logout
+          </button>
+        }
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="flex items-center md:hidden">
+        <button (click)="toggleMenu()" 
+                class="text-gray-700 hover:text-blue-600 focus:outline-none">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            @if (!isMenuOpen()) {
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            } @else {
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            }
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation -->
+  @if (isMenuOpen()) {
+    <div class="md:hidden">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <a routerLink="/" 
+           (click)="toggleMenu()"
+           routerLinkActive="bg-blue-50 text-blue-600"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+          Home
+        </a>
+        <a routerLink="/about" 
+           (click)="toggleMenu()"
+           routerLinkActive="bg-blue-50 text-blue-600"
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+          About
+        </a>
+
+        @if (!isLoggedIn()) {
+          <a routerLink="/login" 
+             (click)="toggleMenu()"
+             routerLinkActive="bg-blue-50 text-blue-600"
+             class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            Login
+          </a>
+          <a routerLink="/signup" 
+             (click)="toggleMenu()"
+             class="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700">
+            Sign Up
+          </a>
+        } @else {
+          <a routerLink="/dashboard" 
+             (click)="toggleMenu()"
+             routerLinkActive="bg-blue-50 text-blue-600"
+             class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            Dashboard
+          </a>
+          <button (click)="logout(); toggleMenu()" 
+                  class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+            Logout
+          </button>
+        }
+      </div>
+    </div>
+  }
+</nav>

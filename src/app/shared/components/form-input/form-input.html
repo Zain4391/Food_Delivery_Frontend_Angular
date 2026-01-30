@@ -1,0 +1,38 @@
+<label class="flex flex-col gap-1.5 group">
+  <span class="text-[#181211] dark:text-white text-sm font-bold leading-normal">{{ label() }}</span>
+  <div class="relative flex items-center">
+    <span class="material-symbols-outlined absolute left-4 text-[#896861] group-focus-within:text-primary transition-colors">
+      {{ icon() }}
+    </span>
+    <input
+      [formControl]="control()"
+      [type]="type()"
+      [placeholder]="placeholder()"
+      class="form-input flex w-full rounded-xl text-[#181211] dark:text-white dark:bg-[#2a1a17] focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#e6dddb] dark:border-gray-700 bg-background-light h-14 pl-12 text-base font-medium placeholder:text-[#896861]/70 transition-all duration-200"
+      [class.pr-12]="showPasswordToggle()"
+      [class.pr-4]="!showPasswordToggle()"
+      [class.border-red-500]="control().invalid && control().touched"
+    />
+    @if (showPasswordToggle()) {
+      <button
+        class="absolute right-4 text-[#896861] hover:text-primary transition-colors flex items-center justify-center rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-700"
+        type="button"
+      >
+        <span class="material-symbols-outlined text-[20px]">visibility</span>
+      </button>
+    }
+  </div>
+  @if (control().invalid && control().touched) {
+    <span class="text-red-500 text-xs font-medium mt-1">
+      @if (control().errors?.['required']) {
+        This field is required
+      }
+      @if (control().errors?.['email']) {
+        Please enter a valid email
+      }
+      @if (control().errors?.['minlength']) {
+        Minimum {{ control().errors?.['minlength'].requiredLength }} characters required
+      }
+    </span>
+  }
+</label>

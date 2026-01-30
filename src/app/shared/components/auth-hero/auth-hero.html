@@ -1,0 +1,18 @@
+<!-- auth-hero.html -->
+<img 
+  [src]="safeImageUrl()"
+  [alt]="imageAlt()"
+  class="w-full h-full object-cover"
+/>
+
+<!-- Overlay Gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-16 z-10">
+  <div class="max-w-lg">
+    <h2 class="text-white text-5xl font-black leading-[1.1] tracking-tight mb-4 drop-shadow-sm">
+      {{ title() }}
+    </h2>
+    <p class="text-white/90 text-xl font-medium leading-relaxed drop-shadow-md">
+      {{ subtitle() }}
+    </p>
+  </div>
+</div>
