@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('./features/signup-driver/signup-driver').then((m) => m.SignupDriver),
   },
   {
+    path: 'signup-admin',
+    loadComponent: () =>
+      import('./features/signup-admin/signup-admin').then((m) => m.SignupAdmin),
+  },
+  {
     path: '',
     redirectTo: 'signup',
     pathMatch: 'full',

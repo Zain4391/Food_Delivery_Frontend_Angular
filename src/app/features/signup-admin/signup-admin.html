@@ -1,0 +1,97 @@
+<div class="flex h-screen w-full">
+  <!-- Left Side: Hero Image -->
+  <app-auth-hero 
+  imageUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuDSsNy5t5TEHZs5I8nh8Ijz53SVDt58DFSJ8JPbU6u9NKUrRwdWuuAgnN9v4CLZ5SGUK9TkNMiTbTacvmaZr5AKQullG8vnSSnHD2lbFJ6iZ2mAzkUmVdHcg9nAAeywtdan6vjE_ZYzm2nmRyBFOZmGEyGvPVNHaQKuPUDlZW02CiZgrP3IAHwK6ixqz8_UB_b4rGfu2ockPPw27kgMIv8Vx4fv_OivumVU_2l4u5DSe15zFx40XPUnSoFkeIvyMyQR_pChQf66307O"
+  imageAlt="Laptop on wooden desk"
+  title="Manage your business efficiently."
+  subtitle="Access powerful tools to oversee operations, track performance, and grow your delivery network seamlessly. "
+  />
+
+  <!-- Right Side: Signup Form -->
+  <div class="w-full lg:w-1/2 h-full flex flex-col bg-white dark:bg-background-dark overflow-y-auto scrollbar-hide relative shadow-2xl">
+    <!-- Role Tabs -->
+    <app-role-tabs [activeRole]="'customer'" />
+
+    <div class="flex-1 flex flex-col justify-center items-center px-6 sm:px-12 py-8">
+      <div class="w-full max-w-md flex flex-col gap-6 animate-fade-in-up">
+        <!-- Page Heading -->
+        <div class="flex flex-col gap-2">
+          <h1 class="text-[#181211] dark:text-white text-3xl sm:text-4xl font-black leading-tight tracking-[-0.033em]">
+            Admin Registration
+          </h1>
+          <p class="text-[#896861] dark:text-gray-400 text-base font-normal leading-normal">
+            Create your administrative account to access the dashboard. 
+          </p>
+        </div>
+
+        <!-- Form -->
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+          <!-- Full Name Field -->
+          <app-form-input
+            label="Full Name"
+            placeholder="John Doe"
+            type="text"
+            icon="person"
+            [control]="fullNameControl"
+          />
+
+          <!-- Email Field -->
+          <app-form-input
+            label="Email Address"
+            placeholder="john@example.com"
+            type="email"
+            icon="mail"
+            [control]="emailControl"
+          />
+
+          <!-- Phone Field -->
+          <app-form-input
+            label="Phone Number"
+            placeholder="(555) 000-0000"
+            type="tel"
+            icon="call"
+            [control]="phoneControl"
+          />
+
+          <!-- Password Field -->
+          <div class="flex flex-col gap-1.5">
+            <app-form-input
+              label="Password"
+              placeholder="••••••••"
+              type="password"
+              icon="lock"
+              [control]="passwordControl"
+              [showPasswordToggle]="true"
+            />
+            <div class="flex justify-end mt-1">
+              <a routerLink="/forgot-password" class="text-xs sm:text-sm font-bold text-[#896861] hover:text-primary transition-colors">
+                Forgot Password?
+              </a>
+            </div>
+          </div>
+
+          <!-- Sign Up Button -->
+          <button
+            type="submit"
+            [disabled]="isSubmitting()"
+            class="mt-2 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 bg-primary hover:bg-[#d43b1e] active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary/30 text-white text-base font-bold leading-normal tracking-[0.015em] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            @if (isSubmitting()) {
+              <span>Signing up...</span>
+            } @else {
+              <span>Sign Up</span>
+            }
+          </button>
+        </form>
+
+        <!-- Footer Link -->
+        <div class="text-center pt-2 pb-8">
+          <p class="text-[#896861] dark:text-gray-400 text-sm font-medium">
+            Already have an account?
+            <a routerLink="/login" class="text-primary font-bold hover:text-[#d43b1e] transition-colors ml-1">Log in</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
