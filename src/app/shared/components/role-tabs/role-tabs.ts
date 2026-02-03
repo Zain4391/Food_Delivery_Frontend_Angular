@@ -1,5 +1,5 @@
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
   selector: 'app-role-tabs',
@@ -10,5 +10,23 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class RoleTabs {
   activeRole = input<'customer' | 'driver' | 'admin'>('customer');
+
+  constructor(private router: Router) {}
+
+  get isLoginPage(): boolean {
+    return this.router.url.includes('login');
+  }
+
+  get customerRoute(): string {
+    return this.isLoginPage ? '/login' : '/signup';
+  }
+
+  get driverRoute(): string {
+    return this.isLoginPage ? '/login-driver' : '/signup-driver';
+  }
+
+  get adminRoute(): string {
+    return this.isLoginPage ? '/login-admin' : '/signup-admin';
+  }
 }
 

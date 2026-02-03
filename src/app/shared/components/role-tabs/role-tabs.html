@@ -2,19 +2,19 @@
   <div class="w-full max-w-md">
     <div class="flex w-full border-b border-[#e6dddb] dark:border-gray-800 gap-8 justify-between sm:justify-start">
       
-      <a routerLink="/signup" routerLinkActive="border-b-2 border-primary" class="flex items-center justify-center py-4 cursor-pointer transition-colors">
+      <a [routerLink]="customerRoute" routerLinkActive="border-b-2 border-primary" class="flex items-center justify-center py-4 cursor-pointer transition-colors">
         <p routerLinkActive="text-primary font-bold" class="text-[#896861] dark:text-gray-400 text-base font-medium">
           Customer
         </p>
       </a>
       
-      <a routerLink="/signup-driver" routerLinkActive="border-b-2 border-primary" class="flex items-center justify-center py-4 cursor-pointer transition-colors">
+      <a [routerLink]="driverRoute" routerLinkActive="border-b-2 border-primary" class="flex items-center justify-center py-4 cursor-pointer transition-colors">
         <p routerLinkActive="text-primary font-bold" class="text-[#896861] dark:text-gray-400 text-base font-medium">
           Driver
         </p>
       </a>
       
-      <a routerLink="/signup-admin" routerLinkActive="border-b-2 border-primary" class="flex items-center justify-center py-4 cursor-pointer transition-colors">
+      <a [routerLink]="adminRoute" routerLinkActive="border-b-2 border-primary" class="flex items-center justify-center py-4 cursor-pointer transition-colors">
         <p routerLinkActive="text-primary font-bold" class="text-[#896861] dark:text-gray-400 text-base font-medium">
           Admin
         </p>

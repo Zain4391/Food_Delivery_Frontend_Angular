@@ -1,10 +1,10 @@
 <div class="flex h-screen w-full">
   <!-- Left Side: Hero Image -->
   <app-auth-hero 
-  imageUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuDSsNy5t5TEHZs5I8nh8Ijz53SVDt58DFSJ8JPbU6u9NKUrRwdWuuAgnN9v4CLZ5SGUK9TkNMiTbTacvmaZr5AKQullG8vnSSnHD2lbFJ6iZ2mAzkUmVdHcg9nAAeywtdan6vjE_ZYzm2nmRyBFOZmGEyGvPVNHaQKuPUDlZW02CiZgrP3IAHwK6ixqz8_UB_b4rGfu2ockPPw27kgMIv8Vx4fv_OivumVU_2l4u5DSe15zFx40XPUnSoFkeIvyMyQR_pChQf66307O"
-  imageAlt="Laptop on wooden desk"
-  title="Manage your business efficiently."
-  subtitle="Access powerful tools to oversee operations, track performance, and grow your delivery network seamlessly. "
+  imageUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuCw8pFHWG8XfUrcQpialGv9bmf8kcpOWNvYPb7LJbeHSFW7lb-Xj302kzj5ksjabVpNc1s6g8nJDJsp9adB8-OyHr1OnHhmB7IxVFdTI8fXcncFMzbbcwpEY7OBO5i1AcCON0aFZ1o_LTxulIlgvofKcS1R-Wo4ok0KDPfDWBRnzroXewQlLLrVepfid6VzHt6PcbyFvdtdMV_BGQ6kMxQQ3QgUcF9b2peK0nc7Cik6s6Dv4VC4zoR1LvF6RSfwWyfOr7rlUgYBeCII"
+  imageAlt="Pepparoni Pizza"
+  title="Hungry?"
+  subtitle="Your favorite gourmet meals, delivered hot and fresh in a flash. Login to satisfy your cravings."
   />
 
   <!-- Right Side: Signup Form -->
@@ -17,24 +17,16 @@
         <!-- Page Heading -->
         <div class="flex flex-col gap-2">
           <h1 class="text-[#181211] dark:text-white text-3xl sm:text-4xl font-black leading-tight tracking-[-0.033em]">
-            Admin Registration
+            Customer Login
           </h1>
           <p class="text-[#896861] dark:text-gray-400 text-base font-normal leading-normal">
-            Create your administrative account to access the dashboard. 
+            Welcome back! Please enter your details.
           </p>
         </div>
 
         <!-- Form -->
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
-          <!-- Full Name Field -->
-          <app-form-input
-            label="Full Name"
-            placeholder="John Doe"
-            type="text"
-            icon="person"
-            [control]="fullNameControl"
-          />
-
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+          
           <!-- Email Field -->
           <app-form-input
             label="Email Address"
@@ -44,14 +36,6 @@
             [control]="emailControl"
           />
 
-          <!-- Phone Field -->
-          <app-form-input
-            label="Phone Number"
-            placeholder="(555) 000-0000"
-            type="tel"
-            icon="call"
-            [control]="phoneControl"
-          />
 
           <!-- Password Field -->
           <div class="flex flex-col gap-1.5">
@@ -63,18 +47,23 @@
               [control]="passwordControl"
               [showPasswordToggle]="true"
             />
+            <div class="flex justify-end mt-1">
+              <a routerLink="/forgot-password" class="text-xs sm:text-sm font-bold text-[#896861] hover:text-primary transition-colors">
+                Forgot Password?
+              </a>
+            </div>
           </div>
 
-          <!-- Sign Up Button -->
+          <!-- Login Button -->
           <button
             type="submit"
             [disabled]="isSubmitting()"
             class="mt-2 flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 bg-primary hover:bg-[#d43b1e] active:scale-[0.98] transition-all duration-200 shadow-lg shadow-primary/30 text-white text-base font-bold leading-normal tracking-[0.015em] disabled:opacity-50 disabled:cursor-not-allowed"
           >
             @if (isSubmitting()) {
-              <span>Signing up...</span>
+              <span>Logging In...</span>
             } @else {
-              <span>Sign Up</span>
+              <span>Login</span>
             }
           </button>
         </form>
@@ -82,8 +71,8 @@
         <!-- Footer Link -->
         <div class="text-center pt-2 pb-8">
           <p class="text-[#896861] dark:text-gray-400 text-sm font-medium">
-            Already have an account?
-            <a routerLink="/login-admin" class="text-primary font-bold hover:text-[#d43b1e] transition-colors ml-1">Log in</a>
+            Don't have an account?
+            <a routerLink="/signup" class="text-primary font-bold hover:text-[#d43b1e] transition-colors ml-1">Sign Up</a>
           </p>
         </div>
       </div>
