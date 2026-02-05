@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 import { FormInput } from '../../shared/components/form-input/form-input';
 import { Dropdown, type DropdownOption } from '../../shared/components/dropdown/dropdown';
 import { RoleTabs } from '../../shared/components/role-tabs/role-tabs';
@@ -17,6 +18,9 @@ import { Bike, Car } from 'lucide-angular';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignupDriver {
+  // DI
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   signupForm: FormGroup;
   isSubmitting = signal(false);
@@ -67,9 +71,21 @@ export class SignupDriver {
   onSubmit() {
     if(this.signupForm.valid) {
       this.isSubmitting.set(true);
-      console.log("Form Submitted:", this.signupForm.value);
+      const { fullName, email, phone, password, vehicle_type } = this.signupForm.value;
 
-      // TODO: add api call to backend
+      this.authService.registerDriver(fullName, email, phone, password, vehicle_type).subscribe({
+        next: (response) => {
+          console.log("Driver registration successful:", response);
+          this.isSubmitting.set(false);
+          this.router.navigate(['/driver-dashboard']);
+        },
+        error: (error) => {
+          console.error("Driver registration failed:", error);
+          this.isSubmitting.set(false);
+          alert(error.error?.message || 'Registration failed. Please try again.');
+        }
+      });
+
     } else {
       Object.keys(this.signupForm.controls).forEach(key => {
         this.signupForm.get(key)?.markAsTouched();

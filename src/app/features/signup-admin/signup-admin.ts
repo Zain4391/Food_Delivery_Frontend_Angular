@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 import { FormInput } from '../../shared/components/form-input/form-input';
 import { RoleTabs } from '../../shared/components/role-tabs/role-tabs';
 import { AuthHero } from '../../shared/components/auth-hero/auth-hero';
@@ -13,6 +14,10 @@ import { AuthHero } from '../../shared/components/auth-hero/auth-hero';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignupAdmin {
+  // DI
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
   signupForm: FormGroup;
   isSubmitting = signal(false);
 
@@ -20,7 +25,7 @@ export class SignupAdmin {
     this.signupForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[\d\s\(\)\-\+]+$/)]],
+      address: ['', [Validators.required, Validators.minLength(2)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     })
   }
@@ -33,8 +38,8 @@ export class SignupAdmin {
     return this.signupForm.get('email') as FormControl;
   }
 
-  get phoneControl() {
-    return this.signupForm.get('phone') as FormControl;
+  get addressControl() {
+    return this.signupForm.get('address') as FormControl;
   }
 
   get passwordControl() {
@@ -44,9 +49,21 @@ export class SignupAdmin {
   onSubmit() {
     if(this.signupForm.valid) {
       this.isSubmitting.set(true);
-      console.log("Form Submitted:", this.signupForm.value);
+      const { fullName, email, address, password } = this.signupForm.value;
 
-      // TODO: add api call to backend
+      this.authService.registerAdmin(fullName, email, password, address).subscribe({
+        next: (response) => {
+          console.log("Admin registration successful:", response);
+          this.isSubmitting.set(false);
+          this.router.navigate(['/admin-dashboard']);
+        },
+        error: (error) => {
+          console.error("Admin registration failed:", error);
+          this.isSubmitting.set(false);
+          alert(error.error?.message || 'Registration failed. Please try again.');
+        }
+      });
+
     } else {
       Object.keys(this.signupForm.controls).forEach(key => {
         this.signupForm.get(key)?.markAsTouched();

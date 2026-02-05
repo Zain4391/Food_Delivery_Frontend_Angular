@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormInput } from '../../shared/components/form-input/form-input';
 import { RoleTabs } from '../../shared/components/role-tabs/role-tabs';
 import { AuthHero } from '../../shared/components/auth-hero/auth-hero';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login-user',
@@ -13,6 +14,11 @@ import { AuthHero } from '../../shared/components/auth-hero/auth-hero';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginUser {
+
+  // DI
+  private authService = inject(AuthService);
+  private router = inject(Router);
+
   loginForm: FormGroup;
   isSubmitting = signal(false);
 
@@ -34,9 +40,21 @@ export class LoginUser {
   onSubmit() {
     if(this.loginForm.valid) {
       this.isSubmitting.set(true);
-      console.log("Form Submitted:", this.loginForm.value);
+      const { email, password } = this.loginForm.value;
 
-      // TODO: add api call to backend
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          console.log("Login successful:", response);
+          this.isSubmitting.set(false);
+          this.router.navigate(['/customer-dashboard']);
+        },
+        error: (error) => {
+          console.error("Login failed:", error);
+          this.isSubmitting.set(false);
+          alert(error.error?.message || 'Login failed. Please check your credentials.');
+        }
+      });
+
     } else {
       Object.keys(this.loginForm.controls).forEach(key => {
         this.loginForm.get(key)?.markAsTouched();
