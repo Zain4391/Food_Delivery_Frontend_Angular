@@ -1,45 +1,44 @@
-<nav class="bg-white shadow-lg">
+<nav class="bg-white border-b border-gray-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
+    <div class="flex justify-between items-center h-16">
       <!-- Logo/Brand -->
       <div class="flex items-center">
-        <a routerLink="/" class="text-2xl font-bold text-blue-600">
-          YourApp
+        <a routerLink="/" class="flex items-center gap-2">
+          <!-- Lightning Bolt Icon -->
+          <svg width="24" height="32" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13.5 0L0 18.5H10.5L9 32L24 12.5H12.5L13.5 0Z" fill="#FF8C42"/>
+          </svg>
+          <!-- FlashDash Text -->
+          <span class="text-xl font-bold text-gray-900">FlashDash</span>
         </a>
       </div>
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex md:items-center md:space-x-8">
-        <a routerLink="/" 
-           routerLinkActive="text-blue-600" 
-           [routerLinkActiveOptions]="{exact: true}"
-           class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
-          Home
-        </a>
         <a routerLink="/about" 
-           routerLinkActive="text-blue-600"
-           class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
+           routerLinkActive="text-primary"
+           class="text-gray-900 hover:text-primary px-3 py-2 text-base font-medium transition">
           About
+        </a>
+        <a routerLink="/driver-signup" 
+           routerLinkActive="text-primary"
+           class="text-gray-900 hover:text-primary px-3 py-2 text-base font-medium transition">
+          Partner with Us
         </a>
 
         @if (!isLoggedIn()) {
           <a routerLink="/login" 
-             routerLinkActive="text-blue-600"
-             class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
-            Login
-          </a>
-          <a routerLink="/signup" 
-             class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">
-            Sign Up
+             class="bg-[#FF8C42] text-white px-6 py-2.5 rounded-lg text-base font-semibold hover:bg-[#e67a34] transition-colors">
+            Log in
           </a>
         } @else {
-          <a routerLink="/dashboard" 
-             routerLinkActive="text-blue-600"
-             class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
+          <a routerLink="/customer-dashboard" 
+             routerLinkActive="text-primary"
+             class="text-gray-900 hover:text-primary px-3 py-2 text-base font-medium transition">
             Dashboard
           </a>
           <button (click)="logout()" 
-                  class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition">
+                  class="bg-[#FF8C42] text-white px-6 py-2.5 rounded-lg text-base font-semibold hover:bg-[#e67a34] transition-colors">
             Logout
           </button>
         }
@@ -63,43 +62,36 @@
 
   <!-- Mobile Navigation -->
   @if (isMenuOpen()) {
-    <div class="md:hidden">
+    <div class="md:hidden border-t border-gray-200">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a routerLink="/" 
-           (click)="toggleMenu()"
-           routerLinkActive="bg-blue-50 text-blue-600"
-           [routerLinkActiveOptions]="{exact: true}"
-           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
-          Home
-        </a>
         <a routerLink="/about" 
            (click)="toggleMenu()"
-           routerLinkActive="bg-blue-50 text-blue-600"
-           class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+           routerLinkActive="bg-orange-50 text-primary"
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">
           About
+        </a>
+        <a routerLink="/partner" 
+           (click)="toggleMenu()"
+           routerLinkActive="bg-orange-50 text-primary"
+           class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">
+          Partner with Us
         </a>
 
         @if (!isLoggedIn()) {
           <a routerLink="/login" 
              (click)="toggleMenu()"
-             routerLinkActive="bg-blue-50 text-blue-600"
-             class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
-            Login
-          </a>
-          <a routerLink="/signup" 
-             (click)="toggleMenu()"
-             class="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 text-white hover:bg-blue-700">
-            Sign Up
+             class="block px-3 py-2 rounded-lg text-base font-semibold bg-[#FF8C42] text-white hover:bg-[#e67a34] text-center">
+            Log in
           </a>
         } @else {
           <a routerLink="/dashboard" 
              (click)="toggleMenu()"
-             routerLinkActive="bg-blue-50 text-blue-600"
-             class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+             routerLinkActive="bg-orange-50 text-primary"
+             class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-gray-50">
             Dashboard
           </a>
           <button (click)="logout(); toggleMenu()" 
-                  class="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">
+                  class="w-full block px-3 py-2 rounded-lg text-base font-semibold bg-[#FF8C42] text-white hover:bg-[#e67a34] text-center">
             Logout
           </button>
         }

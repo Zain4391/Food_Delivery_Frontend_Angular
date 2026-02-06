@@ -23,40 +23,35 @@ export class SignupUser {
 
   constructor(private fb: FormBuilder) {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[\d\s\(\)\-\+]+$/)]],
-      address: ['', Validators.required, Validators.minLength(2)],
+      address: ['', [Validators.required, Validators.minLength(2)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
-  get fullNameControl() {
-    return this.signupForm.get('fullName') as FormControl;
+  get nameControl() {
+    return this.signupForm.get('name') as FormControl;
   }
 
   get emailControl() {
     return this.signupForm.get('email') as FormControl;
   }
 
-  get phoneControl() {
-    return this.signupForm.get('phone') as FormControl;
+  get addressControl() {
+    return this.signupForm.get('address') as FormControl;
   }
 
   get passwordControl() {
     return this.signupForm.get('password') as FormControl;
   }
 
-  get addressControl() {
-    return this.signupForm.get("address") as FormControl;
-  }
-
   onSubmit() {
     if (this.signupForm.valid) {
       this.isSubmitting.set(true);
-      const { fullName, email, phone, address, password } = this.signupForm.value;
+      const { name, email, address, password } = this.signupForm.value;
 
-      this.authService.register(fullName, email, phone, address, password).subscribe({
+      this.authService.register(name, email, address, password).subscribe({
         next: (response) => {
           console.log("Registration successful:", response);
           this.isSubmitting.set(false);

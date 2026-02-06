@@ -23,15 +23,15 @@ export class SignupAdmin {
 
   constructor(private fb: FormBuilder) {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       address: ['', [Validators.required, Validators.minLength(2)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     })
   }
 
-  get fullNameControl() {
-    return this.signupForm.get('fullName') as FormControl;
+  get nameControl() {
+    return this.signupForm.get('name') as FormControl;
   }
 
   get emailControl() {
@@ -49,9 +49,9 @@ export class SignupAdmin {
   onSubmit() {
     if(this.signupForm.valid) {
       this.isSubmitting.set(true);
-      const { fullName, email, address, password } = this.signupForm.value;
+      const { name, email, address, password } = this.signupForm.value;
 
-      this.authService.registerAdmin(fullName, email, password, address).subscribe({
+      this.authService.registerAdmin(name, email, password, address).subscribe({
         next: (response) => {
           console.log("Admin registration successful:", response);
           this.isSubmitting.set(false);

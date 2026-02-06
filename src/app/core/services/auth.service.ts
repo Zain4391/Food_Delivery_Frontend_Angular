@@ -69,11 +69,10 @@ export class AuthService {
     return this.currentUserSignal() !== null;
   });
 
-  register(fullName: string, email: string, phone: string, address: string, password: string): Observable<AuthResponse> {
+  register(name: string, email: string, address: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.API_URL}/customer/register`, {
-        fullName,
+        name,
         email,
-        phone,
         address,
         password
     }).pipe(

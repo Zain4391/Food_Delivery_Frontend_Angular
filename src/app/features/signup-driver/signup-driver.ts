@@ -33,7 +33,7 @@ export class SignupDriver {
 
   constructor(private fb: FormBuilder) {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^[\d\s\(\)\-\+]+$/)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -41,8 +41,8 @@ export class SignupDriver {
     });
   }
 
-  get fullNameControl() {
-    return this.signupForm.get('fullName') as FormControl;
+  get nameControl() {
+    return this.signupForm.get('name') as FormControl;
   }
 
   get emailControl() {
@@ -71,9 +71,9 @@ export class SignupDriver {
   onSubmit() {
     if(this.signupForm.valid) {
       this.isSubmitting.set(true);
-      const { fullName, email, phone, password, vehicle_type } = this.signupForm.value;
+      const { name, email, phone, password, vehicle_type } = this.signupForm.value;
 
-      this.authService.registerDriver(fullName, email, phone, password, vehicle_type).subscribe({
+      this.authService.registerDriver(name, email, phone, password, vehicle_type).subscribe({
         next: (response) => {
           console.log("Driver registration successful:", response);
           this.isSubmitting.set(false);

@@ -21,13 +21,13 @@
 
         <!-- Form -->
         <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
-          <!-- Full Name Field -->
+          <!-- Name Field -->
           <app-form-input
             label="Full Name"
             placeholder="John Doe"
             type="text"
             icon="person"
-            [control]="fullNameControl"
+            [control]="nameControl"
           />
 
           <!-- Email Field -->
@@ -39,20 +39,12 @@
             [control]="emailControl"
           />
 
-          <!-- Phone Field -->
-          <app-form-input
-            label="Phone Number"
-            placeholder="(555) 000-0000"
-            type="tel"
-            icon="call"
-            [control]="phoneControl"
-          />
-
+          <!-- Address Field -->
           <app-form-input
            label="Address"
            placeholder="123 Street, New York"
            type="text"
-           icon="building"
+           icon="location_on"
            [control]="addressControl"
           />
 
